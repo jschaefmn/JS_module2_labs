@@ -1,21 +1,22 @@
 "use strict";
 
+let highestScore = 0;
+const maxScore = 100;
+const minScore = 0;
 const scores = [];
 
 // use do-while loop to get the scores from the user
 let score = 0;
 do {
-    score = parseInt(
-        prompt("Enter a test score, or enter -1 to end scores", -1));
+    score = parseInt(prompt("Enter a test score, or enter -1 to end scores", -1));
 
-    if (score >= 0 && score <= 100) {
+    if (score >= minScore && score <= maxScore) {
+        // add score to end of scores array
         scores[scores.length] = score;
+    } else if (score != -1){
+        alert(`Score must by a valid number from ${minScore} through ${maxScore}`);
     }
-    else if (score != -1){
-        alert("Score must by a valid number from 0 through 100");
-    }
-}
-while(score != -1);
+} while(score != -1);
 
 if (scores.length > 0) {
     // use a for-in loop to add each score to total, and display score
@@ -28,4 +29,13 @@ if (scores.length > 0) {
     //calculate and display the average
     const average = parseInt(total/scores.length);
     document.write(`<p>Average score is ${average}</p>`);
+
+    for(let score of scores) {
+        // if the current score is higher than the highest score
+        if(score > highestScore) {
+            // replace the highest score with current score
+            highestScore = score;
+        }
+    }
+    document.write(`<p>Highest score is ${highestScore}</p>`);
 }
